@@ -1,4 +1,4 @@
-# Virtual Diary
+# MoodieJournal
 
 A full-stack web application for journaling with sentiment analysis and PDF export. Built with React (frontend), Node.js/Express (backend), and Python/Flask microservices for sentiment and PDF generation.
 
