@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "checkJs": false,
+    "jsx": "react",
+    "module": "commonjs",         
+    "moduleResolution": "node",
+    "target": "es2020"
+  },
+  "exclude": ["node_modules"]
+}
