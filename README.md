@@ -1,141 +1,92 @@
-# MoodieJournal
+# Moodie Journal 📝✨
 
-A full-stack web application for journaling with sentiment analysis and PDF export. Built with React (frontend), Node.js/Express (backend), and Python/Flask microservices for sentiment and PDF generation.
+Moodie Journal is a full-stack journaling application that helps users track their thoughts and emotions. It features secure authentication, automatic sentiment analysis of entries, and the ability to export journal entries as PDF files.
 
----
+## 🚀 Features
 
-## Features
-- User authentication (register/login/logout)
-- Create, edit, and delete diary entries
-- Sentiment analysis of entries (Python microservice)
-- Download entries as PDF (Python microservice)
-- Secure JWT-based authentication with refresh tokens
-- Responsive React frontend
+*   **User Authentication:** Secure Register and Login using JWT (JSON Web Tokens).
+*   **Create Entries:** Write journal entries which are stored securely in MongoDB.
+*   **Sentiment Analysis:** Automatically analyzes the mood of your entry (Positive, Negative, Neutral) using NLP (`TextBlob`).
+*   **CRUD Operations:** Full Create, Read, Update, and Delete functionality for entries.
+*   **PDF Export:** Download any journal entry as a formatted PDF file.
+*   **Security:** Password hashing with Bcrypt.
 
----
+## 🛠️ Tech Stack
 
-## 🚧 Work in Progress (WIP)
-- Add email field to registration for improved authentication and password recovery.
-- Implement "forgot password" functionality.
-- Refactor sentiment analysis: separate Python microservice (Flask API) from Node.js backend.
-- Upgrade sentiment analysis to use transformers (distilroberta-base) instead of TextBlob for better accuracy.
+*   **Backend:** Python, Flask
+*   **Database:** MongoDB
+*   **Authentication:** Flask-JWT-Extended
+*   **NLP:** TextBlob
+*   **PDF Generation:** FPDF2
+*   **Frontend:** Streamlit (Planned/In Progress)
 
----
+## ⚙️ Setup & Installation
 
-## Project Structure
-```
-virtual-diary/
-├── backend/              # Node.js/Express API
-│   ├── app.js
-│   ├── config.js
-│   ├── controller/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
-│   ├── .env.example
-│   └── package.json
-├── frontend/             # React frontend
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── services/
-│   └── package.json
-├── sentiment_service/    # Python microservices
-│   ├── app.py            # Sentiment analysis
-│   ├── pdf_service.py    # PDF generation
-│   └── requirements.txt
-└── README.md
+### 1. Clone the Repository
+```bash
+git clone <your-repo-url>
+cd moodie-journal
 ```
 
----
-
-## Prerequisites
-- Node.js (v16+ recommended)
-- Python 3.8+
-- MongoDB Atlas (cloud database)
-
----
-
-## Environment Variables
-
-### Backend (`backend/.env`)
-Copy `backend/.env.example` to `backend/.env` and fill in your values:
-```
-MONGO_URI=your_mongodb_atlas_connection_string
-JWT_SECRET=your_strong_jwt_secret
-JWT_REFRESH_SECRET=your_strong_jwt_refresh_secret
-PYTHON_SENTIMENT_URL=http://localhost:5001/analyze
-PYTHON_PDF_URL=http://localhost:5002/pdf
-FRONTEND_URL=http://localhost:3000
-PORT=5000
-```
-
-### Frontend (`frontend/.env`)
-```
-REACT_APP_API_URL=http://localhost:5000
-```
-
----
-
-## Setup & Run Locally
-
-### 1. Backend
+### 2. Backend Setup
+Navigate to the backend folder:
 ```bash
 cd backend
-npm install
-npm start
 ```
 
-### 2. Frontend
+Create and activate a virtual environment:
 ```bash
-cd frontend
-npm install
-npm start
+# Windows
+python -m venv venv
+.\venv\Scripts\activate
+
+# Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-### 3. Sentiment & PDF Services
+Install dependencies:
 ```bash
-cd sentiment_service
 pip install -r requirements.txt
-# Start sentiment analysis service
-python app.py
-# Start PDF service (in another terminal)
-python pdf_service.py
 ```
 
----
+### 3. Configuration
+Create a `.env` file in the `backend` folder (optional, or use `config.py` defaults) and add your MongoDB URI:
+```env
+MONGO_URI=mongodb://localhost:27017/moodie_journal_db
+SECRET_KEY=super-complex-random-string-nobody-can-guess
+JWT_SECRET=another-super-complex-random-string
+```
 
-## Deployment (Render Example)
-- Push your code to GitHub.
-- Create three services on Render:
-  - **Backend:** Web Service (Node), root directory: `backend`, start: `npm start`
-  - **Frontend:** Static Site, root directory: `frontend`, build: `npm run build`, publish: `build`
-  - **Sentiment Service:** Web Service (Python), root: `sentiment_service`, start: `python app.py`
-- Set environment variables in Render dashboard for each service.
-- Use MongoDB Atlas for your database (update `MONGO_URI`).
+### 4. Run the Server
+```bash
+python app.py
+```
+The server will start on `http://127.0.0.1:5000`.
 
----
+## 📡 API Endpoints
 
-## API Endpoints (Backend)
-- `POST   /api/auth/register`   Register new user
-- `POST   /api/auth/login`      Login
-- `POST   /api/auth/refresh-token` Refresh JWT
-- `POST   /api/auth/logout`     Logout
-- `GET    /api/entries`         Get all entries
-- `POST   /api/entries`         Create entry
-- `PUT    /api/entries/:id`     Edit entry
-- `DELETE /api/entries/:id`     Delete entry
-- `GET    /api/entries/:id/download` Download entry as PDF
+### Authentication
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Register a new user |
+| `POST` | `/api/auth/login` | Login and get Access Token |
 
----
+### Journal Entries (Requires Bearer Token)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/entries/` | Create a new entry |
+| `GET` | `/api/entries/` | Get all entries for logged-in user |
+| `GET` | `/api/entries/<id>` | Get a specific entry |
+| `PUT` | `/api/entries/<id>` | Update an entry |
+| `DELETE` | `/api/entries/<id>` | Delete an entry |
+| `GET` | `/api/entries/<id>/download` | Download entry as PDF |
 
-## Notes
-- The backend and microservices must be running for full functionality.
-- For production, set secure values for all secrets and use cloud URLs for microservices.
-- The frontend expects the backend API URL in `REACT_APP_API_URL`.
+## 🧪 Testing
 
----
+You can test the API using **Postman** or **Thunder Client**.
 
-## License
-MIT
+1.  **Login** to get an `accessToken`.
+2.  Add the token to the **Headers** of subsequent requests:
+    *   Key: `Authorization`
+    *   Value: `Bearer YOUR_ACCESS_TOKEN`

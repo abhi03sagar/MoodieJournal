@@ -1,5 +1,0 @@
-gunicorn
-flask
-flask-cors
-textblob
-
