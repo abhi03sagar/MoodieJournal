@@ -1,0 +1,6 @@
+flask
+pymongo
+transformers
+fpdf
+torch
+python-dotenv
