@@ -1,5 +1,27 @@
-venv/
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# Environments / Secrets
 .env
+.flaskenv
+
+# Project Specific - Generated PDFs
+latest_entry.pdf
+journal_*.pdf
+
+# AI Model Caches (Hugging Face defaults)
+.cache/
+hub/
+
+# IDE / OS Specific
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
