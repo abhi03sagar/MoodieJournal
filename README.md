@@ -115,6 +115,12 @@ python app.py
 ```
 Server will start at `http://localhost:5000`.
 
+### 6. Run the Streamlit Frontend
+```bash
+streamlit run streamlit_app.py
+```
+The frontend defaults to `http://localhost:5000` and lets you analyze journal text, generate a PDF, view history, and manage users.
+
 ---
 
 ## 🔮 Upcoming Features
@@ -122,7 +128,7 @@ Server will start at `http://localhost:5000`.
 | Feature | Status | Description |
 | :--- | :--- | :--- |
 | **Streamlit UI** | 🚧 WIP | Interactive frontend for real-time journaling. |
-| **Authentication** | ⏳ Planned | Secure JWT-based Login/Signup. |
+| **Authentication** | ✅ Implemented | Secure Signup/Login with hashed passwords and MongoDB user collection. |
 | **AI Insights** | ⏳ Planned | Weekly mood trends and keyword extraction. |
 | **Cloud Storage** | ⏳ Planned | Upload PDF reports to AWS S3. |
 
@@ -138,6 +144,16 @@ Server will start at `http://localhost:5000`.
 ### 2. Get History
 - **Endpoint**: `GET /api/history`
 - **Response**: JSON list of all past journal entries with sentiment scores.
+
+### 3. Register User
+- **Endpoint**: `POST /api/users/register`
+- **Body**: `{"username": "abhi", "email": "abhi@example.com", "password": "secret123"}`
+- **Response**: Creates a user with hashed password in MongoDB.
+
+### 4. Login User
+- **Endpoint**: `POST /api/users/login`
+- **Body**: `{"username": "abhi", "email": "abhi@example.com", "password": "secret123"}`
+- **Response**: Validates credentials and returns user profile details (without password hash).
 
 ---
 

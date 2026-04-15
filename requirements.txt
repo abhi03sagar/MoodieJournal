@@ -4,3 +4,6 @@ transformers
 fpdf
 torch
 python-dotenv
+streamlit
+requests
+flask-jwt-extended

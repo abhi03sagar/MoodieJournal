@@ -1,11 +1,11 @@
-from MoodieJournal.Modules.sentiment.logic import sentiment_score
+from Modules.sentiment.logic import sentiment_score
 
 def manual_test():
     test_cases = [
         "I love this product!",
         "This is terrible",
-        "The movie was just okay at best.",
-        "I have no strong feelings about this.",
+        "Politics is such a deep topic of discussion.",
+        "To me it is not much special but not bad at all.",
     ]
 
     for text in test_cases:
