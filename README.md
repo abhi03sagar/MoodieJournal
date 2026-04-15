@@ -157,4 +157,3 @@ The frontend defaults to `http://localhost:5000` and lets you analyze journal te
 
 ---
 
-> Built with ❤️ by the Moodie Journal Team.
